@@ -1,0 +1,6 @@
+services:
+  app:
+    ports:
+      - "32080:80"
+    container_name: go-blue
+    hostname: go-blue
