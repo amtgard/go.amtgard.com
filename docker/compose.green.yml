@@ -1,0 +1,6 @@
+services:
+  app:
+    ports:
+      - "32081:80"
+    container_name: go-green
+    hostname: go-green

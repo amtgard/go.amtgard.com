@@ -95,10 +95,17 @@
           window.location.href = $(this).attr('href');
         });
         
+        <?php if (isset($_GET['near']) && strlen(trim($_GET['near'])) > 0) : ?>
+          geocode('<?=$_GET['near'] ?>', function(geocode) {
+            playAmtgardEvents(geocode.Result.Location.location.lat, geocode.Result.Location.location.lng, '<?=date("Y-m-d" ) ?>', '<?=date("Y-m-d", strtotime("+6 month")) ?>', 500, 12);
+            playAmtgardParks(geocode.Result.Location.location.lat, geocode.Result.Location.location.lng, '<?=date("Y-m-d" ) ?>', '<?=date("Y-m-d", strtotime("+1 week")) ?>', 100, 12);
+          });
+        <?php else : ?>
         navigator.geolocation.getCurrentPosition(function(position) {
           playAmtgardEvents(position.coords.latitude, position.coords.longitude, '<?=date("Y-m-d" ) ?>', '<?=date("Y-m-d", strtotime("+6 month")) ?>', 500, 12);
           playAmtgardParks(position.coords.latitude, position.coords.longitude, '<?=date("Y-m-d" ) ?>', '<?=date("Y-m-d", strtotime("+1 week")) ?>', 50, 12);
         });
+        <?php endif ; ?>
       });
 
     </script>
